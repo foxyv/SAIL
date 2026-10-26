@@ -1,0 +1,11 @@
+bin/
+obj/
+*.user
+.vs/
+.idea/
+
+# Game assemblies and local copies: never commit
+lib/
+*.dll
+dist/
+*.log
