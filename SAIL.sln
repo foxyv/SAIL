@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.37530.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8D104D48-D339-4F33-9CE6-FB47946DB4D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAIL", "src\SAIL\SAIL.csproj", "{F87CC2C4-68E2-4EC6-81E1-39BDC5A4E325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAIL", "src\SAIL\SAIL.csproj", "{F87CC2C4-68E2-4EC6-81E1-39BDC5A4E325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAIL.Tests", "SAIL.Tests\SAIL.Tests.csproj", "{CD60F9D8-476A-4B67-83B4-E417A5DA3DDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +19,17 @@ Global
 		{F87CC2C4-68E2-4EC6-81E1-39BDC5A4E325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F87CC2C4-68E2-4EC6-81E1-39BDC5A4E325}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F87CC2C4-68E2-4EC6-81E1-39BDC5A4E325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD60F9D8-476A-4B67-83B4-E417A5DA3DDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD60F9D8-476A-4B67-83B4-E417A5DA3DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD60F9D8-476A-4B67-83B4-E417A5DA3DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD60F9D8-476A-4B67-83B4-E417A5DA3DDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F87CC2C4-68E2-4EC6-81E1-39BDC5A4E325} = {8D104D48-D339-4F33-9CE6-FB47946DB4D3}
+		{CD60F9D8-476A-4B67-83B4-E417A5DA3DDD} = {8D104D48-D339-4F33-9CE6-FB47946DB4D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D5EC8AF-28A4-436C-A986-F2DCA5C1FF68}

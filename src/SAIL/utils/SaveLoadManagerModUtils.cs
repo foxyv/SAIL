@@ -8,6 +8,9 @@ namespace SAIL.utils
     /// </summary>
     static class SaveLoadManagerModUtils
     {
+        /// <summary>
+        /// This semaphore gates the resize of the arrays and let's us prevent race conditions for any mods that use SAIL. (Later we'll guard the array from manipulation outside this method)
+        /// </summary>
         private static readonly SemaphoreSlim Gate = new SemaphoreSlim(1, 1);
 
         /// <summary>
@@ -18,26 +21,44 @@ namespace SAIL.utils
         /// </summary>
         /// <param name="newMaximumSize">The new size to ensure that the load manager has.</param>
         /// <param name="currentObjects">A reference to the current objects array game.</param> 
-        public static void EnsureSaveableObjectCapacity(int newMaximumSize, ref SaveableObject[] currentObjects)
+        public static int EnsureSaveableObjectCapacity(int newMaximumSize, ref SaveableObject[] currentObjects)
         {
+            if (currentObjects.Length >= newMaximumSize)
+            {
+                // The array is already big enough. Leave without doing anything or waiting for the lock.
+                // The array size will only increase so we can assume that it won't get smaller than newMaximumSize
+                return 0;
+            }
+
             // Only allow one thread to call this method at any given moment.
             Gate.Wait();
-            try { 
+            try {
+                int previousMaxSize = currentObjects.Length;
+                // Check again after acquiring the lock (Another thread may have already made it big enough)
                 if (currentObjects.Length >= newMaximumSize)
                 {
-                    // The array is already big enough.
-                    return;
+                    // The array is already big enough. Leave without doing anything.
+                    return 0;
                 }
 
+                // Create a new array with sufficient space and copy the existing array to this bigger one.
                 var bigger = new SaveableObject[newMaximumSize];
                 Array.Copy(currentObjects, bigger, currentObjects.Length);
+
+                // Replace the existing array with the bigger one
                 currentObjects = bigger;
+
+                // Log the increase.
                 Plugin.Log.LogInfo($"currentObjects grown to {newMaximumSize} slots.");
+
+                return newMaximumSize - previousMaxSize;
             } finally {
                 Gate.Release();
             }
         }
         
+
+
 
 
 

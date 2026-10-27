@@ -32,8 +32,11 @@ namespace SAIL.entities
         /// </summary>
         public readonly String modGUID;
 
+
+        // VVVVVVVVVVVVV - CONSTRUCTOR/EQUALS/HASHCODE BOILERPLATE - VVVVVVVVVVVVV
         public SaveEntityMapping(int savedIndex, string entityIdentifier, string modGUID)
         {
+            ValidateEntityIdentifier(entityIdentifier);
             this.savedIndex = savedIndex;
             this.entityIdentifier = entityIdentifier ?? throw new ArgumentNullException(nameof(entityIdentifier));
             this.modGUID = modGUID ?? throw new ArgumentNullException(nameof(modGUID));
@@ -55,6 +58,14 @@ namespace SAIL.entities
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(entityIdentifier);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(modGUID);
             return hashCode;
+        }
+
+        private static void ValidateEntityIdentifier(String entityIdentifier)
+        {
+            if(entityIdentifier.Contains("#"))
+            {
+                throw new ArgumentException(message: "Entity identifiers cannot contain a hashmark '#'", "entityIdentifier");
+            }
         }
     }
 
